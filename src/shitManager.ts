@@ -5,6 +5,7 @@ export interface ShitTime {
   month: number
   day: number
   times: number
+  note: string
 }
 
 export type ShitManager = ReturnType<typeof useShitManager>
@@ -37,7 +38,8 @@ export function useShitManager() {
           year,
           month,
           day,
-          times: 1
+          times: 1,
+          note: ''
         }
         shitTimes.push(record)
       }
@@ -56,11 +58,42 @@ export function useShitManager() {
     )
   }
 
+  const setShitNote = (note: string, date: Date = new Date()) => {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    setShitTimes(v => {
+      const shitTimes = v ?? []
+      const shitTime = shitTimes.find(
+        v => v.year === year && v.month === month && v.day === day
+      )
+      if (shitTime) {
+        shitTime.note = note
+      } else {
+        const record = {
+          year,
+          month,
+          day,
+          times: 0,
+          note: note
+        }
+        shitTimes.push(record)
+      }
+
+      return [...shitTimes]
+    })
+  }
+
+  const clearShitTimes = () => setShitTimes([])
+
   return {
     shitTimes,
     setShitTimes,
     addShitTime,
-    getShitTime
+    getShitTime,
+    setShitNote,
+    clearShitTimes
   }
 }
 

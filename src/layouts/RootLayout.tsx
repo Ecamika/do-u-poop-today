@@ -12,9 +12,12 @@ export default function RootLayout() {
   const navigate = useNavigate()
 
   return (
-    <div className="flex flex-col-reverse w-screen h-screen">
+    <div>
+      <div className="mb-16">
+        <Outlet></Outlet>
+      </div>
       <div className="
-        w-full h-16 flex mt-auto
+        w-full h-16 flex fixed bottom-0 left-0
         flex-row justify-evenly items-center gap-4
         pl-8 pr-8
       ">
@@ -27,7 +30,6 @@ export default function RootLayout() {
           设置
         </Button>
       </div>
-      <Outlet></Outlet>
     </div>
   )
 }
