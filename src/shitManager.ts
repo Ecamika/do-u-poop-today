@@ -12,12 +12,10 @@ export type ShitManager = ReturnType<typeof useShitManager>
 
 export function useShitManager() {
   const [shitTimes, setShitTimes] = useLocalStorageState<ShitTime[]>(
-    'shitTimes',
+    'shit-times',
     {
       defaultValue: [],
       listenStorageChange: true,
-      serializer: v => JSON.stringify(v),
-      deserializer: v => JSON.parse(v)
     }
   )
 
